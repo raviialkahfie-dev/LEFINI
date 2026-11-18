@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEFINI - Video Jualan Otomatis</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',Arial,Helvetica,sans-serif}
+body{background:#0a0a0b}
+.phone{max-width:430px;margin:0 auto;background:#FFFBF5;min-height:100vh;padding-bottom:30px;overflow:hidden}
+.header{background:#000;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:50}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif}
+.logo span{font-size:20px}
+.logo small{display:block;font-size:9px;letter-spacing:2.5px;color:#D4AF37;font-weight:700;margin-top:-2px}
+.kredit{border:1px solid #D4AF37;border-radius:999px;padding:7px 12px;font-size:12px;display:flex;gap:5px;align-items:center;background:#111;cursor:pointer;white-space:nowrap}
+.kredit b{font-size:14px;color:#fff}
+.wrap{padding:14px}
+.hero{background:#000;color:#fff;border-radius:18px;padding:18px;position:relative;overflow:hidden}
+.hero:before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:radial-gradient(circle,#D4AF37 0%,transparent 70%);opacity:.5}
+.hero-badge{display:inline-block;background:#D4AF37;color:#000;font-size:10px;font-weight:800;padding:5px 9px;border-radius:999px;letter-spacing:.5px}
+.hero h2{font-size:26px;line-height:1.15;margin:10px 0 6px;font-family:'Plus Jakarta Sans',sans-serif}
+.hero h2 em{color:#D4AF37;font-style:normal}
+.hero p{font-size:13px;color:#C9C9C9;line-height:1.5}
+.hero-stats{display:flex;gap:8px;margin-top:14px}
+.hero-stats div{flex:1;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:10px;text-align:center}
+.hero-stats b{font-size:15px;display:block}
+.hero-stats span{font-size:10px;color:#bbb}
+h2{font-size:26px}
+.sub{font-size:14px;color:#444;margin-top:2px;line-height:1.4}
+.tabs{display:flex;gap:6px;margin-top:14px;background:#fff;padding:5px;border-radius:14px;border:1px solid #eee;position:sticky;top:60px;z-index:40}
+.tabs button{flex:1;padding:11px 4px;border:none;background:transparent;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700}
+.tabs button.active{background:#000;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
+.paket{background:#fff;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;box-shadow:0 4px 16px rgba(0,0,0,.05);border:1px solid #eee;position:relative}
+.paket.p2{border:2px solid #000;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.paket .icon{font-size:30px;position:relative;flex-shrink:0;width:46px;height:46px;background:#FFF4E6;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.p2 .icon{background:#ECFEFF}
+.p3 .icon{background:#F5F3FF}
+.paket .badge{position:absolute;top:-8px;right:-4px;background:#f97316;color:#fff;font-size:9px;padding:2px 5px;border-radius:10px;font-weight:800}
+.p2 .badge{background:#0891b2}
+.p3 .badge{background:#7c3aed}
+.paket .info{flex:1;min-width:0}
+.paket .judul{font-weight:800;font-size:15px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.paket .harga{font-weight:900;font-size:22px;margin-top:2px}
+.p1 .harga{color:#ea580c}
+.p2 .harga{color:#0e7490}
+.p3 .harga{color:#6d28d9}
+.paket .ket{font-size:12px;color:#777;margin-top:3px;line-height:1.4}
+.paket .harga-coret{font-size:11px;color:#999;text-decoration:line-through}
+.pop{background:#cffafe;color:#0e7490;font-size:9px;padding:3px 7px;border-radius:999px;font-weight:800;white-space:nowrap}
+.btn-beli{background:#000;color:#fff;border:none;padding:11px 16px;border-radius:11px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0}
+.qris{background:#fff;border:2px solid #d4af37;border-radius:14px;padding:14px;margin-bottom:10px;display:none}
+.qris.show{display:block}
+.btn-hijau{background:#16a34a;color:#fff;width:100%;padding:13px;border:none;border-radius:11px;font-weight:800;cursor:pointer}
+.upload{background:#fff;border:2px dashed #ccc;border-radius:14px;padding:14px;display:block;cursor:pointer;text-align:center}
+.upload img{width:100%;height:180px;object-fit:cover;border-radius:8px;display:none;margin-top:8px}
+.inp{width:100%;padding:13px;border:1px solid #ddd;border-radius:11px;background:#fff;margin-top:8px;font-size:14px}
+.inp:focus{outline:none;border-color:#000}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tpl{background:#fff;border:2px solid #eee;border-radius:12px;padding:12px;cursor:pointer}
+.tpl.active{background:#000;color:#fff;border-color:#d4af37}
+.tpl b{font-size:13px;display:block}
+.tpl small{font-size:11px;color:#888}
+.tpl.active small{color:#ffd700}
+.btn-buat{width:100%;padding:16px;border:none;border-radius:13px;color:#fff;font-weight:900;font-size:17px;cursor:pointer;margin-top:16px;background:linear-gradient(90deg,#000,#D4AF37);box-shadow:0 8px 20px rgba(212,175,55,.35)}
+.card{background:#fff;border-radius:14px;padding:14px;margin-top:10px;border:1px solid #eee}
+.card.kuning{background:#fefce8}
+.hidden{display:none!important}
+.metode-btn{flex:1;padding:10px;border:2px solid #eee;background:#fff;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700}
+.metode-btn.active{border-color:#000;background:#000;color:#fff}
+.testi{background:#fff;border:1px solid #eee;border-radius:14px;padding:13px;margin-bottom:8px}
+.testi b{font-size:13px}
+.testi p{font-size:12px;color:#555;line-height:1.5;margin-top:4px}
+.trust{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.trust span{background:#fff;border:1px solid #eee;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:600}
+.footer{background:#000;color:#aaa;text-align:center;padding:20px 14px;margin-top:20px;border-radius:18px 18px 0 0}
+.footer b{color:#fff;font-size:18px}
+</style>
+</head>
+<body>
+
+<!-- === LOGIN LEFINI === -->
+<div id="loginPage" style="position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#1e1e1e;padding:24px;border-radius:16px;width:90%;max-width:340px;text-align:center;color:white;font-family:sans-serif">
+    <div style="font-size:30px;font-weight:900;letter-spacing:-1px">LEFINI <span>🎥</span></div>
+    <p style="font-size:11px;letter-spacing:2px;color:#D4AF37;font-weight:700;margin:2px 0 6px">VIDEO JUALAN OTOMATIS</p>
+    <p style="font-size:13px;color:#aaa;margin:0 0 16px">Login dulu buat generate video</p>
+    <input id="inNama" placeholder="Nama (buat Daftar)" style="width:100%;padding:12px;margin-bottom:8px;border-radius:8px;border:1px solid #333;background:#111;color:white;box-sizing:border-box">
+    <input id="inEmail" placeholder="Email" style="width:100%;padding:12px;margin-bottom:8px;border-radius:8px;border:1px solid #333;background:#111;color:white;box-sizing:border-box">
+    <input id="inPass" type="password" placeholder="Password" style="width:100%;padding:12px;margin-bottom:12px;border-radius:8px;border:1px solid #333;background:#111;color:white;box-sizing:border-box">
+    <button onclick="doLogin()" style="width:100%;padding:12px;background:#fff;color:#000;border:none;border-radius:8px;font-weight:bold;cursor:pointer">LOGIN</button>
+    <button onclick="doRegister()" style="width:100%;padding:12px;background:#333;color:#fff;border:none;border-radius:8px;margin-top:8px;cursor:pointer">DAFTAR</button>
+    <p id="loginMsg" style="font-size:12px;color:#ff6b6b;margin-top:10px"></p>
+    <p style="font-size:11px;color:#666;margin-top:10px">Dipercaya 500+ UMKM & Affiliate di Indonesia</p>
+  </div>
+</div>
+
+<div id="userBar" style="position:fixed;top:10px;right:10px;z-index:999;color:white;font-size:12px;background:#222;padding:8px 12px;border-radius:20px;display:none">
+  <span id="userNama"></span> | Kredit: <b id="userKredit">0</b>
+</div>
+
+<div class="phone">
+<div class="header"><div class="top"><div class="logo">LEFINI <span>🎥</span><small>VIDEO JUALAN OTOMATIS</small></div><div class="kredit" onclick="pindah('beli')">⊕ Kredit Video: <b id="kreditTop">0</b> +</div></div></div>
+<div class="wrap">
+
+<!-- HERO PRO -->
+<div class="hero">
+  <span class="hero-badge">✦ DIPERCAYA 500+ UMKM & AFFILIATE</span>
+  <h2>Halo, UMKM & Affiliate !!<br><em>Video Jualan Jadi<br>Dalam 60 Detik.</em></h2>
+  <p>Gak perlu syuting, gak perlu editing. Upload foto produk, pilih template, video langsung jadi siap posting ke TikTok.</p>
+  <div class="hero-stats">
+    <div><b>1 Menit</b><span>Jadi Video</span></div>
+    <div><b>10 Template</b><span>Viral TikTok</span></div>
+    <div><b>4.9 / 5.0</b><span>Rating User</span></div>
+  </div>
+</div>
+
+<div class="trust"><span>✅ Tanpa Aplikasi</span><span>✅ QRIS All Payment</span><span>✅ CS Fast Respon</span></div>
+
+<div class="tabs">
+<button id="tabBeli" class="active" onclick="pindah('beli')">🛒 Beli Paket</button>
+<button id="tabBuat" onclick="pindah('buat')">🎬 Buat Video</button>
+<button id="tabHasil" onclick="pindah('hasil')">📁 Hasil (<span id="jmlHasil">0</span>)</button>
+</div>
+
+<div id="pageBeli">
+<h3>Paket Kredit Video</h3>
+<div class="paket p1"><div class="icon">🎥<span class="badge">10</span></div><div class="info"><div class="judul">Paket 10 Video</div><div class="harga">Rp 39.000</div><div class="harga-coret">Rp 49.000</div><div class="ket">Cocok untuk coba-coba • Berlaku 1 Minggu • Rp 3.900 / video</div></div><button class="btn-beli" onclick="beli(10,39000,'Paket 10 Video')">Beli</button></div>
+<div class="paket p2"><div class="icon">🎥<span class="badge">30</span></div><div class="info"><div class="judul">Paket 30 Video <span class="pop">PALING POPULER</span></div><div class="harga">Rp 99.000</div><div class="harga-coret">Rp 117.000</div><div class="ket">Hemat 15% • Berlaku 1 Bulan • Rp 3.300 / video • Paling banyak dibeli</div></div><button class="btn-beli" onclick="beli(30,99000,'Paket 30 Video')">Beli</button></div>
+<div class="paket p3"><div class="icon">🎥<span class="badge">100</span></div><div class="info"><div class="judul">Paket 100 Video</div><div class="harga">Rp 279.000</div><div class="harga-coret">Rp 390.000</div><div class="ket">Hemat 30% • Berlaku 90 Hari • Rp 2.790 / video • Buat jualan scale up</div></div><button class="btn-beli" onclick="beli(100,279000,'Paket 100 Video')">Beli</button></div>
+
+<!-- === BOX BAYAR - QRIS MANUAL LEFINI === -->
+<div id="qrisBox" class="qris">
+<b id="qrisTitle">Bayar Paket</b>
+<p style="font-size:13px;color:#555;margin-top:4px">Bayar <b id="qrisNominal"></b> via:</p>
+<div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:10px;border-radius:10px;margin:10px 0;font-size:13px">✅ QRIS LEFINI<br><span style="font-size:12px;color:#555">Bisa scan pake DANA / OVO / GoPay / M-Banking</span></div>
+
+<div id="paymentArea" style="background:#f8f8f8;padding:14px;border-radius:10px;text-align:center;line-height:1.6;display:none">
+  <p style="font-size:13px;font-weight:700">📷 Scan QRIS ini</p>
+  <div style="width:260px;max-width:100%;margin:10px auto;border:1px solid #ddd;border-radius:12px;background:#fff;overflow:hidden">
+    <img id="imgQRIS" src="https://i.ibb.co/4ZffrzfH/Whats-App-Image-2026-11-18-at-10-00-48.jpg" onerror="if(!this.dataset.tried){this.dataset.tried=1;this.src='https://i.ibb.co.com/4ZffrzfH/Whats-App-Image-2026-11-18-at-10-00-48.jpg';}else{this.style.display='none';document.getElementById('qrisFallback').style.display='block';}" style="width:100%;height:auto;display:block"/>
+    <div id="qrisFallback" style="display:none;padding:20px;font-size:13px">QRIS gagal dimuat di browser ini.<br><a href="https://ibb.co.com/0jXXbTXx" target="_blank" style="display:inline-block;margin-top:10px;padding:10px 16px;background:#000;color:#fff;border-radius:8px;text-decoration:none">👉 Klik Untuk Buka QRIS</a></div>
+  </div>
+  <p style="font-weight:700;margin:0">LEFINI</p>
+  <p style="font-size:11px;color:#666;margin:0 0 10px">NMID : ID1026641375021 - Scan pake aplikasi apa aja</p>
+  <p id="payStatus" style="font-size:12px;color:#2563eb;margin-top:6px">1. Screenshot QRIS ini<br>2. Buka DANA / GoPay / OVO / m-Banking<br>3. Scan / Upload dari galeri<br>4. Bayar sesuai nominal paket</p>
+  <p style="font-size:11px;color:#999">Order: <span id="orderIdTampil">-</span></p>
+  <button onclick="cekKreditManual()" style="margin-top:10px;padding:10px 16px;border:1px solid #ddd;background:#fff;border-radius:8px;cursor:pointer">🔄 Cek Kalau Udah Diaktifkan Admin</button>
+</div>
+
+<button class="btn-hijau" id="btnBayarTripay" onclick="bayarQRIS()">📷 Tampilkan QRIS & Bayar</button>
+<button id="btnSudahBayar" onclick="sudahBayarQRIS()" style="display:none;width:100%;margin-top:8px;padding:12px;background:#25D366;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer">✅ Saya Sudah Bayar - Konfirmasi WA</button>
+<button onclick="batal()" style="width:100%;margin-top:8px;padding:10px;background:#fff;border:1px solid #ddd;border-radius:10px;cursor:pointer">❌ Batal</button>
+<p id="tripayMsg" style="font-size:12px;color:#dc2626;text-align:center;margin-top:8px"></p>
+</div>
+
+<div class="card kuning"><b>💡 Cara Pakai LEFINI:</b><p style="font-size:14px;margin-top:8px;line-height:1.8">1. Beli paket di atas, bayar QRIS<br>2. Upload foto produk<br>3. Pilih 1 dari 10 template<br>4. Klik BUAT VIDEO SEKARANG<br>5. Video jadi, download, posting ke TikTok!</p></div>
+
+<h3>Apa Kata Mereka? ⭐⭐⭐⭐⭐</h3>
+<div class="testi"><b>⭐⭐⭐⭐⭐ Sari - Olshop Baju, Bandung</b><p>"Baru upload 3 video LEFINI, langsung ada yang checkout. Padahal biasanya sepi. Worth it banget Rp 3.900 per video."</p></div>
+<div class="testi"><b>⭐⭐⭐⭐⭐ Andi - Affiliate TikTok</b><p>"Gak perlu syuting lagi. Sehari bisa posting 5 video beda produk. Komisi naik 2x lipat bulan ini."</p></div>
+<div class="testi"><b>⭐⭐⭐⭐⭐ Putri - UMKM Skincare</b><p>"CS-nya fast respon, kredit langsung masuk abis bayar QRIS. Videonya juga keliatan mahal."</p></div>
+</div>
+
+<div id="pageBuat" class="hidden">
+<h3>Upload Foto Produk</h3>
+<p style="font-size:13px;color:#666;margin-bottom:10px">Foto bagus = video bagus. Pake foto produk yang terang & jelas ya.</p>
+<label class="upload" for="fotoInput"><span id="uploadText">☁️ <b>Unggah foto produk Anda</b><br><span style="font-size:11px;color:#777">Klik di sini, pilih foto JPG/PNG</span></span><img id="previewImg"></label>
+<input type="file" id="fotoInput" accept="image/*" style="display:none">
+<button onclick="hapusFoto()" style="width:100%;margin-top:6px;padding:8px;background:#fff;border:1px solid #ddd;border-radius:8px;cursor:pointer">🔄 Ganti / Hapus Foto</button>
+<input class="inp" id="namaProduk" value="Baju Oversize Hitam">
+<input class="inp" id="hargaProduk" value="85000">
+<input class="inp" id="naskahProduk" value="Bahan ok, harga terjangkau, stok terbatas!">
+<h3 style="text-align:center">Pilih Template Video (10 Pilihan)</h3>
+<p style="text-align:center;font-size:13px;margin-bottom:10px">Template terpilih: <b id="tplTerpilih">📣 Mengulas Produk</b></p>
+<div class="grid" id="templateList"></div>
+<button class="btn-buat" onclick="buatVideo()">✨ BUAT VIDEO SEKARANG</button>
+<p style="text-align:center;font-size:11px;color:#666;margin-top:8px">Potong 1 kredit per video • Sisa: <b id="kreditBuat">0</b></p>
+<p id="statusBuat" style="text-align:center;font-size:13px;color:#2563eb;margin-top:8px"></p>
+</div>
+
+<div id="pageHasil" class="hidden">
+<h3>Hasil Video Kamu</h3>
+<button onclick="hapusSemua()" style="width:100%;padding:10px;background:#fff;border:1px solid #fca5a5;color:#dc2626;border-radius:8px;cursor:pointer;margin-bottom:10px">🗑️ Hapus Semua Hasil</button>
+<div id="hasilList"><p style="font-size:13px;color:#777">Belum ada video. Beli paket dulu, baru bikin.</p></div>
+</div>
+
+<div class="footer"><b>LEFINI 🎥</b><p style="font-size:12px;line-height:1.6;margin-top:6px">Video Jualan Otomatis untuk UMKM & Affiliate Indonesia<br>CS: 0857-4535-0039 | IG: @lefini.id<br><br>© 2026 LEFINI. All rights reserved.</p></div>
+
+<div style="text-align:center;margin-top:12px"><button onclick="reset()" style="background:none;border:none;color:#ccc;font-size:11px;cursor:pointer">Reset - Kembalikan ke 0</button></div>
+</div>
+</div>
+
+<script>
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbz3NxxO-9uV_9krKs410MjXNRSvNW2jW7KZl1y9rIXlAMhCxZzlv1d0Mpcrj1Y7lA4/exec";
+const WA_ADMIN = "6285745350039";
+let currentUser = null;
+var kredit = 0;
+var hasil = [];
+var selected = 1;
+var pending = null;
+var fotoData = '';
+var paymentMethod = 'qris';
+var currentVA = '';
+var cekInterval = null;
+var currentOrderId = '';
+var currentWaLink = '';
+var TEMPLATES = [
+ {id:1, nama:"Mengulas Produk", emoji:"🎤", desc:"Ngomong ke kamera", prompt:"Model sedang mengulas produk ini sambil berbicara ke kamera, menunjukkan detail produk dengan tangannya, tersenyum ramah, gerakan natural seperti sedang live review"},
+ {id:2, nama:"Catwalk", emoji:"🚶‍♀️", desc:"Jalan fashion show", prompt:"Model sedang berjalan percaya diri seperti di atas catwalk fashion show, memamerkan baju dari berbagai sudut, gerakan anggun dan elegan"},
+ {id:3,nama:"Joget TikTok",emoji:"🕺",desc:"Joget viral 6 detik", prompt:"Model sedang berjoget dengan gembira mengikuti tren TikTok, energik, ceria, gerakan halus, tersenyum ke kamera, kecepatan sedang"},
+ {id:4,nama:"Unboxing",emoji:"📦",desc:"Buka paket", prompt:"Model sedang membuka paket produk dengan antusias, menunjukkan isi paket ke kamera dengan ekspresi senang dan penasaran"},
+ {id:5,nama:"Try On",emoji:"👕",desc:"Ganti baju kilat", prompt:"Model sedang mencoba baju ini, berpose memamerkan model baju dari berbagai sudut, menunjukkan kecocokan baju saat dipakai"},
+ {id:6,nama:"Review Jujur",emoji:"⭐",desc:"Review kayak teman", prompt:"Model sedang memberikan review jujur tentang baju ini sambil berbicara natural ke kamera, seperti sedang ngobrol santai dengan teman"},
+ {id:7,nama:"POV Jalan-Jalan",emoji:"🗺️",desc:"Jalan di mall", prompt:"Model sedang berjalan santai di mall sambil memakai baju ini, suasana POV jalan-jalan, gerakan natural, terlihat candid dan estetik"},
+ {id:8,nama:"Spill Harga",emoji:"🏷️",desc:"Harga gede di layar", prompt:"Model sedang menunjukkan baju ini ke kamera sambil berpose heboh seperti sedang spill harga murah, ekspresi kaget dan antusias, gerakan tangan menunjuk ke arah kamera"},
+ {id:9,nama:"Sebelum-Sesudah",emoji:"🔄",desc:"Before After", prompt:"Model menunjukkan transformasi sebelum dan sesudah memakai baju ini, dari tampilan biasa menjadi tampil percaya diri dan cantik, gerakan transisi yang halus"},
+ {id:10,nama:"Live Jualan",emoji:"📱",desc:"Kayak live TikTok", prompt:"Model sedang berjualan secara live seperti di TikTok, berbicara semangat ke kamera, menunjukkan baju, mengajak penonton untuk checkout sekarang"}
+];
+
+async function doLogin(){
+  const email = document.getElementById('inEmail').value.trim();
+  const pass = document.getElementById('inPass').value;
+  if(!email || !pass){ document.getElementById('loginMsg').innerText = "Isi Email & Password dulu!"; return; }
+  document.getElementById('loginMsg').innerText = "Lagi login...";
+  try{
+    const res = await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'login', email:email, password:pass})});
+    const data = await res.json();
+    if(data.ok){
+      currentUser = data.user;
+      kredit = Number(data.user.kredit) || 0;
+      update();
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('userBar').style.display = 'block';
+      document.getElementById('userNama').innerText = data.user.nama;
+      document.getElementById('userKredit').innerText = kredit;
+    } else { document.getElementById('loginMsg').innerText = data.msg || data.error || "Login gagal"; }
+  }catch(e){ document.getElementById('loginMsg').innerText = "Gagal konek: " + e.message; }
+}
+
+async function doRegister(){
+  const nama = document.getElementById('inNama').value.trim();
+  const email = document.getElementById('inEmail').value.trim();
+  const pass = document.getElementById('inPass').value;
+  if(!nama || !email || !pass){ document.getElementById('loginMsg').innerText = "Isi Nama, Email, Password dulu!"; return; }
+  document.getElementById('loginMsg').innerText = "Lagi daftar...";
+  try{
+    const res = await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'register', nama:nama, email:email, password:pass})});
+    const data = await res.json();
+    if(data.ok){
+      currentUser = data.user;
+      kredit = Number(data.user.kredit) || 0;
+      update();
+      document.getElementById('loginPage').style.display = 'none';
+      document.getElementById('userBar').style.display = 'block';
+      document.getElementById('userNama').innerText = data.user.nama;
+      document.getElementById('userKredit').innerText = kredit;
+    } else { document.getElementById('loginMsg').innerText = data.msg || data.error || "Daftar gagal"; }
+  }catch(e){ document.getElementById('loginMsg').innerText = "Gagal konek: " + e.message; }
+}
+
+function update(){document.getElementById('kreditTop').innerText=kredit;document.getElementById('kreditBuat').innerText=kredit;document.getElementById('jmlHasil').innerText=hasil.length; if(currentUser) document.getElementById('userKredit').innerText=kredit;}
+function pindah(tab){document.getElementById('pageBeli').classList.add('hidden');document.getElementById('pageBuat').classList.add('hidden');document.getElementById('pageHasil').classList.add('hidden');document.getElementById('tabBeli').classList.remove('active');document.getElementById('tabBuat').classList.remove('active');document.getElementById('tabHasil').classList.remove('active');if(tab=='beli'){document.getElementById('pageBeli').classList.remove('hidden');document.getElementById('tabBeli').classList.add('active');}if(tab=='buat'){document.getElementById('pageBuat').classList.remove('hidden');document.getElementById('tabBuat').classList.add('active');}if(tab=='hasil'){document.getElementById('pageHasil').classList.remove('hidden');document.getElementById('tabHasil').classList.add('active');tampilHasil();}window.scrollTo({top:0,behavior:'smooth'});}
+function tampilTemplate(){var html='';for(var i=0;i<TEMPLATES.length;i++){var t=TEMPLATES[i];var cls=(t.id==selected)?'tpl active':'tpl';html+='<div class="'+cls+'" onclick="pilih('+t.id+')"><span style="font-size:18px">'+t.emoji+'</span><b>'+t.nama+'</b><small>'+t.desc+'</small></div>';}document.getElementById('templateList').innerHTML=html;for(var j=0;j<TEMPLATES.length;j++){if(TEMPLATES[j].id==selected)document.getElementById('tplTerpilih').innerText=TEMPLATES[j].emoji+' '+TEMPLATES[j].nama;}}
+function pilih(id){selected=id;tampilTemplate();}
+function beli(jumlah,harga,nama){
+  if(!currentUser){ alert('Login dulu!'); return; }
+  pending={jumlah:jumlah,harga:harga,nama:nama};
+  paymentMethod='qris';
+  currentOrderId='';
+  document.getElementById('paymentArea').style.display='none';
+  document.getElementById('tripayMsg').innerText='';
+  document.getElementById('btnBayarTripay').style.display='block';
+  document.getElementById('btnBayarTripay').disabled=false;
+  document.getElementById('btnSudahBayar').style.display='none';
+  document.getElementById('qrisBox').classList.add('show');
+  document.getElementById('qrisTitle').innerText='Bayar '+nama;
+  document.getElementById('qrisNominal').innerText='Rp '+harga.toLocaleString('id-ID');
+  document.getElementById('qrisBox').scrollIntoView({behavior:'smooth'});
+}
+function pilihMetode(m){ paymentMethod='qris'; }
+async function bayarQRIS(){
+  if(!pending){alert('Pilih paket dulu');return;}
+  document.getElementById('tripayMsg').innerText='Membuat pembayaran... tunggu...';
+  document.getElementById('btnBayarTripay').disabled=true;
+  try{
+    const res = await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'create_payment', email: currentUser.email, paket: pending.jumlah, harga: pending.harga, method: 'qris'})});
+    const data = await res.json();
+    if(!data.ok){ document.getElementById('tripayMsg').innerText = 'Gagal: ' + (data.msg||'Gagal buat order'); document.getElementById('btnBayarTripay').disabled=false; return; }
+    var d = data.data;
+    currentOrderId = d.order_id || '';
+    currentWaLink = d.wa_link || '';
+    if(d.qris_image && d.qris_image !== 'LINK_GAMBAR_QRIS_KAMU'){ document.getElementById('imgQRIS').src = d.qris_image; }
+    document.getElementById('orderIdTampil').innerText = currentOrderId;
+    document.getElementById('paymentArea').style.display='block';
+    document.getElementById('tripayMsg').innerText='';
+    document.getElementById('btnBayarTripay').style.display='none';
+    document.getElementById('btnSudahBayar').style.display='block';
+    document.getElementById('payStatus').innerHTML='1. Screenshot QRIS ini<br>2. Buka DANA / GoPay / OVO / m-Banking<br>3. Scan / Upload dari galeri<br>4. Bayar Rp '+pending.harga.toLocaleString('id-ID')+' sesuai nominal';
+    var kreditAwal = kredit;
+    if(cekInterval) clearInterval(cekInterval);
+    cekInterval = setInterval(async ()=>{
+      try{
+        const r2 = await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'get_kredit', email: currentUser.email})});
+        const j2 = await r2.json();
+        if(j2.ok && Number(j2.kredit) > kreditAwal){
+          kredit = Number(j2.kredit); update();
+          clearInterval(cekInterval);
+          document.getElementById('payStatus').innerText='✅ Pembayaran berhasil! Kredit masuk.';
+          alert('Berhasil! Kredit '+pending.jumlah+' masuk. Sekarang: '+kredit);
+          document.getElementById('qrisBox').classList.remove('show'); pending=null; pindah('buat');
+        }
+      }catch(e){}
+    }, 10000);
+  }catch(e){
+    document.getElementById('tripayMsg').innerText='Gagal konek: '+e.message;
+    document.getElementById('btnBayarTripay').disabled=false;
+  }
+}
+async function sudahBayarQRIS(){
+  if(!pending) return;
+  try{
+    if(currentOrderId){
+      await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'konfirmasi_bayar', order_id: currentOrderId})});
+    }
+  }catch(e){}
+  var pesan = "Halo LEFINI, saya sudah bayar QRIS.\n\nOrder: " + currentOrderId + "\nEmail: " + (currentUser?currentUser.email:'') + "\nPaket: " + pending.nama + "\nNominal: Rp " + pending.harga.toLocaleString('id-ID') + "\nMohon diaktifkan ya.";
+  var link = currentWaLink || ("https://wa.me/" + WA_ADMIN + "?text=" + encodeURIComponent(pesan));
+  window.open(link, '_blank');
+  alert('Konfirmasi terkirim ke WA Admin. Admin akan cek mutasi DANA Bisnis & aktifkan kredit kamu.');
+}
+function bayarMidtrans(){ return bayarQRIS(); }
+function bayarTripay(){ return bayarQRIS(); }
+async function cekKreditManual(){
+  if(!currentUser || !pending) return;
+  try{
+    const r2 = await fetch(SHEET_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'get_kredit', email: currentUser.email})});
+    const j2 = await r2.json();
+    if(j2.ok){
+      if(Number(j2.kredit) > kredit){
+        kredit = Number(j2.kredit); update();
+        if(cekInterval) clearInterval(cekInterval);
+        alert('Berhasil! Kredit '+pending.jumlah+' masuk. Sekarang: '+kredit);
+        document.getElementById('qrisBox').classList.remove('show'); pending=null; pindah('buat');
+      } else {
+        alert('Belum masuk. Pastikan udah bayar QRIS & udah klik "Saya Sudah Bayar", admin lagi cek mutasi.');
+      }
+    }
+  }catch(e){ alert('Gagal cek: '+e.message); }
+}
+function copyVA(){ if(currentVA){ navigator.clipboard.writeText(currentVA); alert('Nomor tersalin: '+currentVA); } }
+function batal(){document.getElementById('qrisBox').classList.remove('show');pending=null; currentOrderId=''; document.getElementById('btnSudahBayar').style.display='none'; if(cekInterval) clearInterval(cekInterval);}
+function gratis(){kredit=kredit+1;update();alert('Dapat 1 kredit gratis! Sekarang: '+kredit);pindah('buat');}
+function hapusFoto(){fotoData='';var img=document.getElementById('previewImg');img.src='';img.style.display='none';document.getElementById('uploadText').style.display='block';document.getElementById('fotoInput').value='';}
+function reset(){if(!confirm('Reset ke 0?'))return;kredit=0;hasil=[];fotoData='';pending=null;hapusFoto();update();tampilTemplate();tampilHasil();pindah('beli');alert('Sudah reset ke 0');}
+document.getElementById('fotoInput').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){fotoData=ev.target.result;var img=document.getElementById('previewImg');img.src=fotoData;img.style.display='block';document.getElementById('uploadText').style.display='none';};r.readAsDataURL(f);};
+async function buatVideo(){
+  if(!fotoData){alert("Upload foto produk dulu!");return;}
+  if(kredit<=0){alert('Kredit 0! Beli paket dulu atau klik Coba 1 Kredit Gratis');pindah('beli');return;}
+  var nama=document.getElementById('namaProduk').value||'Produk';
+  var harga=document.getElementById('hargaProduk').value||'85000';
+  var naskah=document.getElementById('naskahProduk').value||'Bahan adem';
+  var tpl=TEMPLATES[0];for(var i=0;i<TEMPLATES.length;i++){if(TEMPLATES[i].id==selected)tpl=TEMPLATES[i];}
+  if(!confirm('Buat video "'+tpl.nama+'" untuk '+nama+'? Kredit dipotong 1 kalau berhasil, sisa '+(kredit-1)))return;
+  document.getElementById('statusBuat').innerText='⏳ Kirim ke server... AI lagi gerakin fotonya, tunggu 1-2 menit, jangan tutup...';
+  try{
+    var promptFull=tpl.prompt+". The model says in Indonesian: "+naskah+". Cinematic, realistic, high quality, smooth motion. Sound: natural speaking voice.";
+    var res=await fetch(SHEET_URL,{method:"POST", headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({prompt:promptFull,image_url:fotoData})});
+    var data=await res.json();
+    var videoUrl=data.videoUrl||data.video_url||"";
+    if(!videoUrl) throw new Error("Video belum jadi. Cek saldo Atlas / Log Eksekusi Apps Script. Respon: "+JSON.stringify(data).slice(0,400));
+    kredit=kredit-1;
+    hasil.unshift({id:Date.now(),template:tpl.nama,emoji:tpl.emoji,nama:nama,harga:harga,naskah:naskah,foto:fotoData,video:videoUrl,tanggal:new Date().toLocaleString('id-ID')});
+    update();
+    document.getElementById('statusBuat').innerText='✅ Berhasil! Cek tab Hasil';
+    alert('Video berhasil dibuat! Sisa kredit: '+kredit);pindah('hasil');
+  }catch(err){
+    document.getElementById('statusBuat').innerText='❌ Gagal: '+err.message;
+    alert("Gagal: "+err.message+"\n\nKredit TIDAK kepotong karena gagal.");
+  }
+}
+function tampilHasil(){
+  var el=document.getElementById('hasilList');
+  if(hasil.length==0){el.innerHTML='<p style="font-size:13px;color:#777">Belum ada video. Beli paket dulu, baru bikin.</p>';return;}
+  var html='';
+  for(var i=0;i<hasil.length;i++){
+    var h=hasil[i];
+    html+='<div class="card"><b>'+h.emoji+' '+h.template+' - '+h.nama+'</b><p style="font-size:12px;color:#666">Rp '+h.harga+' | '+h.tanggal+'</p><p style="font-size:12px">Naskah: '+h.naskah+'</p>';
+    if(h.video) html+='<video src="'+h.video+'" controls playsinline style="width:100%;border-radius:8px;margin-top:8px"></video><a href="'+h.video+'" target="_blank" style="display:block;text-align:center;margin-top:8px;padding:10px;background:#000;color:#fff;border-radius:8px;text-decoration:none">⬇️ Download Video MP4</a>';
+    else if(h.foto) html+='<img src="'+h.foto+'" style="width:100%;height:150px;object-fit:cover;border-radius:8px;margin-top:8px">';
+    html+='<button onclick="hapusSatu('+h.id+')" style="width:100%;margin-top:6px;padding:8px;background:#fff;border:1px solid #ddd;border-radius:8px;cursor:pointer">🗑️ Hapus</button></div>';
+  }
+  el.innerHTML=html;
+}
+function hapusSatu(id){if(!confirm('Hapus video ini?'))return;var baru=[];for(var i=0;i<hasil.length;i++){if(hasil[i].id!=id)baru.push(hasil[i]);}hasil=baru;update();tampilHasil();}
+function hapusSemua(){if(hasil.length==0){alert('Sudah kosong');return;}if(!confirm('Hapus semua?'))return;hasil=[];update();tampilHasil();}
+tampilTemplate();update();
+</script>
+</body>
+</html>
