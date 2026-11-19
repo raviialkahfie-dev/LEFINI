@@ -8,7 +8,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',Arial,Helvetica,sans-serif}
 body{background:#0a0a0b}
-.phone{max-width:430px;margin:0 auto;background:#FFFBF5;min-height:100vh;padding-bottom:30px;overflow:hidden}
+.phone{max-width:430px;margin:0 auto;background:#FFFBF5;min-height:100vh;padding-bottom:90px;overflow:hidden}
 .header{background:#000;color:#fff;padding:14px 16px 12px;position:sticky;top:0;z-index:50}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .logo{font-size:28px;font-weight:900;letter-spacing:-1px;white-space:nowrap;font-family:'Plus Jakarta Sans',sans-serif}
@@ -77,6 +77,28 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
 .trust span{background:#fff;border:1px solid #eee;padding:6px 9px;border-radius:999px;font-size:11px;font-weight:600}
 .footer{background:#000;color:#aaa;text-align:center;padding:20px 14px;margin-top:20px;border-radius:18px 18px 0 0}
 .footer b{color:#fff;font-size:18px}
+/* BARU: Pilihan Kualitas & Durasi */
+.opt-group{display:flex;gap:8px;margin-top:8px}
+.opt-btn{flex:1;padding:12px 6px;border:2px solid #eee;background:#fff;border-radius:11px;cursor:pointer;font-size:13px;font-weight:700;text-align:center}
+.opt-btn.active{border-color:#000;background:#000;color:#fff}
+.opt-btn small{display:block;font-size:10px;font-weight:600;opacity:.7;margin-top:2px}
+.opt-btn.active small{color:#D4AF37}
+/* REVISI: Foto Perbandingan - TANPA VIDEO, TANPA TIKTOK, BISA DI-TAP */
+.demo-wrap{display:flex;gap:8px;margin-top:14px}
+.demo-box{flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;overflow:hidden;text-align:center;position:relative;cursor:pointer}
+.demo-box img{width:100%;height:110px;object-fit:cover;display:block}
+.demo-box .tap-label{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.65);color:#fff;font-size:9px;font-weight:700;padding:4px 8px;border-radius:999px;white-space:nowrap}
+.demo-box b{font-size:11px;display:block;padding:7px 4px 2px}
+.demo-box span{font-size:10px;color:#bbb;display:block;padding-bottom:8px}
+.demo-note{font-size:11px;color:#bbb;text-align:center;margin-top:8px}
+/* BARU 2: Tombol Beli Melayang Bawah */
+.sticky-buy{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1px solid #eee;padding:10px 14px;display:flex;gap:10px;align-items:center;z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+.sticky-buy .kiri{flex:1}
+.sticky-buy .kiri b{font-size:14px;display:block}
+.sticky-buy .kiri span{font-size:11px;color:#777}
+.sticky-buy button{border:none;padding:12px 18px;border-radius:11px;font-weight:800;cursor:pointer;font-size:13px}
+.sticky-buy .btn-lihat{background:#fff;border:1px solid #ddd}
+.sticky-buy .btn-beli2{background:#000;color:#fff}
 </style>
 </head>
 <body>
@@ -110,6 +132,20 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
   <span class="hero-badge">✦ DIPERCAYA 500+ UMKM & AFFILIATE</span>
   <h2>Halo, UMKM & Affiliate !!<br><em>Video Jualan Jadi<br>Dalam 60 Detik.</em></h2>
   <p>Gak perlu syuting, gak perlu editing. Upload foto produk, pilih template, video langsung jadi siap posting ke TikTok.</p>
+  <!-- REVISI: TAP = LANGSUNG PILIH KUALITAS, TANPA TIKTOK -->
+  <div class="demo-wrap">
+    <div class="demo-box" onclick="pilihDemo('480p')">
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=60" style="filter:blur(1.5px) brightness(0.85)">
+      <div class="tap-label">👆 TAP - PILIH 480p</div>
+      <b>📱 480p - Hemat</b><span>Buat Story WA • 1 Kredit</span>
+    </div>
+    <div class="demo-box" style="border-color:#D4AF37" onclick="pilihDemo('720p')">
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" style="filter:contrast(1.12) saturate(1.2)">
+      <div class="tap-label" style="background:#D4AF37;color:#000">👆 TAP - PILIH 720p</div>
+      <b>✨ 720p - Jernih</b><span>Buat TikTok / Iklan • 2 Kredit</span>
+    </div>
+  </div>
+  <p class="demo-note">Tap salah satu, langsung kepilih kualitasnya & masuk ke Buat Video.</p>
   <div class="hero-stats">
     <div><b>1 Menit</b><span>Jadi Video</span></div>
     <div><b>10 Template</b><span>Viral TikTok</span></div>
@@ -127,9 +163,11 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
 
 <div id="pageBeli">
 <h3>Paket Kredit Video</h3>
-<div class="paket p1"><div class="icon">🎥<span class="badge">10</span></div><div class="info"><div class="judul">Paket 10 Video</div><div class="harga">Rp 39.000</div><div class="harga-coret">Rp 49.000</div><div class="ket">Cocok untuk coba-coba • Berlaku 1 Minggu • Rp 3.900 / video</div></div><button class="btn-beli" onclick="beli(10,39000,'Paket 10 Video')">Beli</button></div>
-<div class="paket p2"><div class="icon">🎥<span class="badge">30</span></div><div class="info"><div class="judul">Paket 30 Video <span class="pop">PALING POPULER</span></div><div class="harga">Rp 99.000</div><div class="harga-coret">Rp 117.000</div><div class="ket">Hemat 15% • Berlaku 1 Bulan • Rp 3.300 / video • Paling banyak dibeli</div></div><button class="btn-beli" onclick="beli(30,99000,'Paket 30 Video')">Beli</button></div>
-<div class="paket p3"><div class="icon">🎥<span class="badge">100</span></div><div class="info"><div class="judul">Paket 100 Video</div><div class="harga">Rp 279.000</div><div class="harga-coret">Rp 390.000</div><div class="ket">Hemat 30% • Berlaku 90 Hari • Rp 2.790 / video • Buat jualan scale up</div></div><button class="btn-beli" onclick="beli(100,279000,'Paket 100 Video')">Beli</button></div>
+<p style="font-size:13px;color:#666;margin:-6px 0 12px">1 Kredit = 1 Video 480p 5 detik. Pilih 720p / 10 detik potong kredit lebih banyak, tapi tetep hemat.</p>
+<!-- REVISI HARGA: 20 / 60 / 200 KREDIT - AMAN DARI RUGI -->
+<div class="paket p1"><div class="icon">🎥<span class="badge">20</span></div><div class="info"><div class="judul">Paket Hemat - 20 Kredit</div><div class="harga">Rp 59.000</div><div class="harga-coret">Rp 79.000</div><div class="ket">Bisa jadi 20 video 480p 5 detik • atau 10 video 720p 6 detik • Berlaku 1 Minggu • Rp 2.950 / kredit</div></div><button class="btn-beli" onclick="beli(20,59000,'Paket Hemat - 20 Kredit')">Beli</button></div>
+<div class="paket p2"><div class="icon">🎥<span class="badge">60</span></div><div class="info"><div class="judul">Paket Laris - 60 Kredit <span class="pop">PALING POPULER</span></div><div class="harga">Rp 169.000</div><div class="harga-coret">Rp 210.000</div><div class="ket">Bisa jadi 60 video 480p 5 detik • atau 30 video 720p 6 detik • Berlaku 1 Bulan • Rp 2.816 / kredit</div></div><button class="btn-beli" onclick="beli(60,169000,'Paket Laris - 60 Kredit')">Beli</button></div>
+<div class="paket p3"><div class="icon">🎥<span class="badge">200</span></div><div class="info"><div class="judul">Paket Sultan - 200 Kredit</div><div class="harga">Rp 549.000</div><div class="harga-coret">Rp 690.000</div><div class="ket">Bisa jadi 200 video 480p 5 detik • atau 100 video 720p 6 detik • Berlaku 90 Hari • Rp 2.745 / kredit</div></div><button class="btn-beli" onclick="beli(200,549000,'Paket Sultan - 200 Kredit')">Beli</button></div>
 
 <!-- === BOX BAYAR - QRIS MANUAL LEFINI === -->
 <div id="qrisBox" class="qris">
@@ -156,10 +194,10 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
 <p id="tripayMsg" style="font-size:12px;color:#dc2626;text-align:center;margin-top:8px"></p>
 </div>
 
-<div class="card kuning"><b>💡 Cara Pakai LEFINI:</b><p style="font-size:14px;margin-top:8px;line-height:1.8">1. Beli paket di atas, bayar QRIS<br>2. Upload foto produk<br>3. Pilih 1 dari 10 template<br>4. Klik BUAT VIDEO SEKARANG<br>5. Video jadi, download, posting ke TikTok!</p></div>
+<div class="card kuning"><b>💡 Cara Pakai LEFINI:</b><p style="font-size:14px;margin-top:8px;line-height:1.8">1. Beli paket di atas, bayar QRIS<br>2. Upload foto produk<br>3. Pilih kualitas & durasi + 1 dari 10 template<br>4. Klik BUAT VIDEO SEKARANG<br>5. Video jadi, download, posting ke TikTok!</p></div>
 
 <h3>Apa Kata Mereka? ⭐⭐⭐⭐⭐</h3>
-<div class="testi"><b>⭐⭐⭐⭐⭐ Sari - Olshop Baju, Bandung</b><p>"Baru upload 3 video LEFINI, langsung ada yang checkout. Padahal biasanya sepi. Worth it banget Rp 3.900 per video."</p></div>
+<div class="testi"><b>⭐⭐⭐⭐⭐ Sari - Olshop Baju, Bandung</b><p>"Baru upload 3 video LEFINI, langsung ada yang checkout. Padahal biasanya sepi. Worth it banget, tinggal upload foto langsung jadi."</p></div>
 <div class="testi"><b>⭐⭐⭐⭐⭐ Andi - Affiliate TikTok</b><p>"Gak perlu syuting lagi. Sehari bisa posting 5 video beda produk. Komisi naik 2x lipat bulan ini."</p></div>
 <div class="testi"><b>⭐⭐⭐⭐⭐ Putri - UMKM Skincare</b><p>"CS-nya fast respon, kredit langsung masuk abis bayar QRIS. Videonya juga keliatan mahal."</p></div>
 </div>
@@ -173,11 +211,33 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
 <input class="inp" id="namaProduk" value="Baju Oversize Hitam">
 <input class="inp" id="hargaProduk" value="85000">
 <input class="inp" id="naskahProduk" value="Bahan ok, harga terjangkau, stok terbatas!">
+
+<!-- BARU: PILIH KUALITAS & DURASI -->
+<h3>Pilih Kualitas Video</h3>
+<div class="opt-group">
+  <div class="opt-btn active" id="btn480" onclick="pilihRes('480p')">480p<small>Hemat • Buat Story WA</small></div>
+  <div class="opt-btn" id="btn720" onclick="pilihRes('720p')">720p<small>Jernih • Buat TikTok / Iklan</small></div>
+</div>
+<h3>Pilih Durasi</h3>
+<div class="opt-group">
+  <div class="opt-btn active" id="btn5" onclick="pilihDurasi(5)">5 Detik<small>1-2 Kredit</small></div>
+  <div class="opt-btn" id="btn6" onclick="pilihDurasi(6)">6 Detik<small>1-2 Kredit</small></div>
+  <div class="opt-btn" id="btn10" onclick="pilihDurasi(10)">10 Detik<small>2-3 Kredit</small></div>
+</div>
+<!-- BARU 2: PILIH RASIO -->
+<h3>Pilih Rasio Video</h3>
+<div class="opt-group">
+  <div class="opt-btn active" id="btn916" onclick="pilihRasio('9:16')">9:16<small>TikTok / Reels</small></div>
+  <div class="opt-btn" id="btn11" onclick="pilihRasio('1:1')">1:1<small>Feed IG / FB</small></div>
+  <div class="opt-btn" id="btn169" onclick="pilihRasio('16:9')">16:9<small>YouTube / Iklan</small></div>
+</div>
+<div class="card kuning" style="text-align:center"><b id="biayaInfo">Biaya: 1 Kredit • 480p - 5 Detik - 9:16</b><p style="font-size:12px;color:#666;margin-top:4px">480p 5 detik = 1 kredit | 480p 10 detik = 2 kredit<br>720p 5/6 detik = 2 kredit | 720p 10 detik = 3 kredit<br>Rasio tidak nambah biaya, gratis pilih.</p></div>
+
 <h3 style="text-align:center">Pilih Template Video (10 Pilihan)</h3>
 <p style="text-align:center;font-size:13px;margin-bottom:10px">Template terpilih: <b id="tplTerpilih">📣 Mengulas Produk</b></p>
 <div class="grid" id="templateList"></div>
 <button class="btn-buat" onclick="buatVideo()">✨ BUAT VIDEO SEKARANG</button>
-<p style="text-align:center;font-size:11px;color:#666;margin-top:8px">Potong 1 kredit per video • Sisa: <b id="kreditBuat">0</b></p>
+<p style="text-align:center;font-size:11px;color:#666;margin-top:8px">Potong <b id="potongInfo">1</b> kredit per video • Sisa: <b id="kreditBuat">0</b></p>
 <p id="statusBuat" style="text-align:center;font-size:13px;color:#2563eb;margin-top:8px"></p>
 </div>
 
@@ -193,8 +253,15 @@ h3{font-size:20px;margin:20px 0 12px;font-family:'Plus Jakarta Sans',sans-serif}
 </div>
 </div>
 
+<!-- BARU 2: TOMBOL BELI MELAYANG -->
+<div class="sticky-buy" id="stickyBuy">
+  <div class="kiri"><b>Kredit: <span id="kreditSticky">0</span></b><span id="stickyText">Beli paket mulai Rp 59.000</span></div>
+  <button class="btn-lihat" onclick="pindah('buat')">🎬 Buat</button>
+  <button class="btn-beli2" onclick="pindah('beli')">🛒 Beli Kredit</button>
+</div>
+
 <script>
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbz3NxxO-9uV_9krKs410MjXNRSvNW2jW7KZl1y9rIXlAMhCxZzlv1d0Mpcrj1Y7lA4/exec";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyLnKDhmRQLrSpJfaoiuuWO0ZOKznu_KokBWPSjj7eZ9ciLWBfuLcoz2pyXYq1_Rn0/exec";
 const WA_ADMIN = "6285745350039";
 let currentUser = null;
 var kredit = 0;
@@ -207,6 +274,48 @@ var currentVA = '';
 var cekInterval = null;
 var currentOrderId = '';
 var currentWaLink = '';
+// BARU: Pilihan Resolusi & Durasi
+var selectedRes = '480p';
+var selectedDur = 5;
+// BARU 2: Pilihan Rasio - default 9:16
+var selectedRasio = '9:16';
+function hitungBiaya(){
+  // 480p 5=1, 480p 6=1, 480p 10=2, 720p 5=2, 720p 6=2, 720p 10=3
+  if(selectedRes==='480p'){ return selectedDur===10 ? 2 : 1; }
+  else { return selectedDur===10 ? 3 : 2; }
+}
+function updateBiayaInfo(){
+  var biaya = hitungBiaya();
+  var el = document.getElementById('biayaInfo');
+  if(el) el.innerText = 'Biaya: '+biaya+' Kredit • '+selectedRes+' - '+selectedDur+' Detik - '+selectedRasio;
+  var el2 = document.getElementById('potongInfo');
+  if(el2) el2.innerText = biaya;
+}
+function pilihRes(res){
+  selectedRes = res;
+  document.getElementById('btn480').classList.toggle('active', res==='480p');
+  document.getElementById('btn720').classList.toggle('active', res==='720p');
+  updateBiayaInfo();
+}
+function pilihDurasi(d){
+  selectedDur = d;
+  document.getElementById('btn5').classList.toggle('active', d===5);
+  document.getElementById('btn6').classList.toggle('active', d===6);
+  document.getElementById('btn10').classList.toggle('active', d===10);
+  updateBiayaInfo();
+}
+function pilihRasio(r){
+  selectedRasio = r;
+  document.getElementById('btn916').classList.toggle('active', r==='9:16');
+  document.getElementById('btn11').classList.toggle('active', r==='1:1');
+  document.getElementById('btn169').classList.toggle('active', r==='16:9');
+  updateBiayaInfo();
+}
+// BARU: Tap foto di Hero = langsung pilih kualitas + pindah ke Buat Video - tanpa TikTok
+function pilihDemo(res){
+  pilihRes(res);
+  pindah('buat');
+}
 var TEMPLATES = [
  {id:1, nama:"Mengulas Produk", emoji:"🎤", desc:"Ngomong ke kamera", prompt:"Model sedang mengulas produk ini sambil berbicara ke kamera, menunjukkan detail produk dengan tangannya, tersenyum ramah, gerakan natural seperti sedang live review"},
  {id:2, nama:"Catwalk", emoji:"🚶‍♀️", desc:"Jalan fashion show", prompt:"Model sedang berjalan percaya diri seperti di atas catwalk fashion show, memamerkan baju dari berbagai sudut, gerakan anggun dan elegan"},
@@ -261,7 +370,7 @@ async function doRegister(){
   }catch(e){ document.getElementById('loginMsg').innerText = "Gagal konek: " + e.message; }
 }
 
-function update(){document.getElementById('kreditTop').innerText=kredit;document.getElementById('kreditBuat').innerText=kredit;document.getElementById('jmlHasil').innerText=hasil.length; if(currentUser) document.getElementById('userKredit').innerText=kredit;}
+function update(){document.getElementById('kreditTop').innerText=kredit;document.getElementById('kreditBuat').innerText=kredit;document.getElementById('jmlHasil').innerText=hasil.length; if(currentUser) document.getElementById('userKredit').innerText=kredit; var ks=document.getElementById('kreditSticky'); if(ks) ks.innerText=kredit; var st=document.getElementById('stickyText'); if(st) st.innerText = kredit>0 ? 'Sisa '+kredit+' kredit • Gas bikin video!' : 'Beli paket mulai Rp 59.000';}
 function pindah(tab){document.getElementById('pageBeli').classList.add('hidden');document.getElementById('pageBuat').classList.add('hidden');document.getElementById('pageHasil').classList.add('hidden');document.getElementById('tabBeli').classList.remove('active');document.getElementById('tabBuat').classList.remove('active');document.getElementById('tabHasil').classList.remove('active');if(tab=='beli'){document.getElementById('pageBeli').classList.remove('hidden');document.getElementById('tabBeli').classList.add('active');}if(tab=='buat'){document.getElementById('pageBuat').classList.remove('hidden');document.getElementById('tabBuat').classList.add('active');}if(tab=='hasil'){document.getElementById('pageHasil').classList.remove('hidden');document.getElementById('tabHasil').classList.add('active');tampilHasil();}window.scrollTo({top:0,behavior:'smooth'});}
 function tampilTemplate(){var html='';for(var i=0;i<TEMPLATES.length;i++){var t=TEMPLATES[i];var cls=(t.id==selected)?'tpl active':'tpl';html+='<div class="'+cls+'" onclick="pilih('+t.id+')"><span style="font-size:18px">'+t.emoji+'</span><b>'+t.nama+'</b><small>'+t.desc+'</small></div>';}document.getElementById('templateList').innerHTML=html;for(var j=0;j<TEMPLATES.length;j++){if(TEMPLATES[j].id==selected)document.getElementById('tplTerpilih').innerText=TEMPLATES[j].emoji+' '+TEMPLATES[j].nama;}}
 function pilih(id){selected=id;tampilTemplate();}
@@ -358,20 +467,22 @@ function reset(){if(!confirm('Reset ke 0?'))return;kredit=0;hasil=[];fotoData=''
 document.getElementById('fotoInput').onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){fotoData=ev.target.result;var img=document.getElementById('previewImg');img.src=fotoData;img.style.display='block';document.getElementById('uploadText').style.display='none';};r.readAsDataURL(f);};
 async function buatVideo(){
   if(!fotoData){alert("Upload foto produk dulu!");return;}
-  if(kredit<=0){alert('Kredit 0! Beli paket dulu atau klik Coba 1 Kredit Gratis');pindah('beli');return;}
+  var biaya = hitungBiaya();
+  if(kredit < biaya){alert('Kredit kurang! Butuh '+biaya+' kredit untuk '+selectedRes+' '+selectedDur+' detik. Sisa kamu: '+kredit+'. Beli paket dulu.');pindah('beli');return;}
   var nama=document.getElementById('namaProduk').value||'Produk';
   var harga=document.getElementById('hargaProduk').value||'85000';
   var naskah=document.getElementById('naskahProduk').value||'Bahan adem';
   var tpl=TEMPLATES[0];for(var i=0;i<TEMPLATES.length;i++){if(TEMPLATES[i].id==selected)tpl=TEMPLATES[i];}
-  if(!confirm('Buat video "'+tpl.nama+'" untuk '+nama+'? Kredit dipotong 1 kalau berhasil, sisa '+(kredit-1)))return;
+  if(!confirm('Buat video "'+tpl.nama+'" '+selectedRes+' '+selectedDur+' detik '+selectedRasio+' untuk '+nama+'? Kredit dipotong '+biaya+' kalau berhasil, sisa '+(kredit-biaya)))return;
   document.getElementById('statusBuat').innerText='⏳ Kirim ke server... AI lagi gerakin fotonya, tunggu 1-2 menit, jangan tutup...';
   try{
     var promptFull=tpl.prompt+". The model says in Indonesian: "+naskah+". Cinematic, realistic, high quality, smooth motion. Sound: natural speaking voice.";
-    var res=await fetch(SHEET_URL,{method:"POST", headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({prompt:promptFull,image_url:fotoData})});
+    // Kirim resolusi, durasi & rasio ke Apps Script / Grok - rasio tidak nambah biaya
+    var res=await fetch(SHEET_URL,{method:"POST", headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({prompt:promptFull,image_url:fotoData,resolution:selectedRes,duration:selectedDur,aspect_ratio:selectedRasio,biaya:biaya})});
     var data=await res.json();
     var videoUrl=data.videoUrl||data.video_url||"";
-    if(!videoUrl) throw new Error("Video belum jadi. Cek saldo Atlas / Log Eksekusi Apps Script. Respon: "+JSON.stringify(data).slice(0,400));
-    kredit=kredit-1;
+    if(!videoUrl) throw new Error("Video belum jadi. Cek saldo Grok di console.x.ai / Log Eksekusi Apps Script. Respon: "+JSON.stringify(data).slice(0,400));
+    kredit=kredit-biaya;
     hasil.unshift({id:Date.now(),template:tpl.nama,emoji:tpl.emoji,nama:nama,harga:harga,naskah:naskah,foto:fotoData,video:videoUrl,tanggal:new Date().toLocaleString('id-ID')});
     update();
     document.getElementById('statusBuat').innerText='✅ Berhasil! Cek tab Hasil';
@@ -396,7 +507,7 @@ function tampilHasil(){
 }
 function hapusSatu(id){if(!confirm('Hapus video ini?'))return;var baru=[];for(var i=0;i<hasil.length;i++){if(hasil[i].id!=id)baru.push(hasil[i]);}hasil=baru;update();tampilHasil();}
 function hapusSemua(){if(hasil.length==0){alert('Sudah kosong');return;}if(!confirm('Hapus semua?'))return;hasil=[];update();tampilHasil();}
-tampilTemplate();update();
+tampilTemplate();update();updateBiayaInfo();
 </script>
 </body>
 </html>
